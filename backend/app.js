@@ -48,7 +48,10 @@ app.use(
     secret: "!@#$$@!$@#$!@#$!@#$!@#$%%^&",
     store: new MySQLStore(dbconfig),
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 // 쿠키 유효기간 1시간
+    }
   })
 );
 
@@ -68,7 +71,7 @@ app.post("/regist", function(req, res) {
   });
 });
 
-// select
+// loginCheck
 app.post("/loginCheck", function(req, res, next) {
   var id = req.body["id"];
   var pw = req.body["pw"];
