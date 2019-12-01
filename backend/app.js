@@ -97,6 +97,15 @@ app.post("/loginCheck", function(req, res, next) {
   );
 });
 
+// logout
+app.post("/logoutCheck", function(req, res, next) {
+  req.session = null; // 세션 삭제
+  res
+    .clearCookie("connect.sid", { path: "/" })
+    .status(200)
+    .redirect("/");
+});
+
 // login
 app.use("/", loginRouter);
 
