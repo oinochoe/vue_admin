@@ -4,19 +4,31 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var bodyParser = require("body-parser");
-// movie router
-var moviesRouter = require("./routes/movies");
+var session = require("express-session");
+var MySQLStore = require("express-mysql-session")(session);
+
+// login router
+var loginRouter = require("./router/login");
+// index router
+var indexRouter = require("./router/index");
+
 // mysql
 var mysql = require("mysql");
 
-// Connection 객체 생성
-var connection = mysql.createConnection({
+// app
+var app = express();
+
+// dbconfig
+var dbconfig = {
   host: "localhost",
   port: 3308,
   user: "root",
   password: "admin",
   database: "test"
-});
+};
+
+// Connection 객체 생성
+var connection = mysql.createConnection(dbconfig);
 
 // Connect
 connection.connect(function(err) {
@@ -27,9 +39,18 @@ connection.connect(function(err) {
   }
 });
 
-var app = express();
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// express-session use
+app.use(
+  session({
+    secret: "!@#$$@!$@#$!@#$!@#$!@#$%%^&",
+    store: new MySQLStore(dbconfig),
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 // insert
 app.post("/regist", function(req, res) {
@@ -60,7 +81,10 @@ app.post("/loginCheck", function(req, res, next) {
         throw err;
       }
       if (rows[0] != undefined) {
-        res.redirect("/#/list");
+        req.session.name = rows[0].id;
+        req.session.save(function() {
+          return res.redirect("/list");
+        });
       } else {
         res.send(
           '<script type="text/javascript">alert("로그인 실패, 아이디와 패스워드를 다시 한번 확인해 주세요."); location.href="/"</script>'
@@ -69,6 +93,12 @@ app.post("/loginCheck", function(req, res, next) {
     }
   );
 });
+
+// login
+app.use("/", loginRouter);
+
+// index
+app.use("/list", indexRouter);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -79,9 +109,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
-// movie
-app.use("/api/movies", moviesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
