@@ -6,7 +6,6 @@ var logger = require("morgan");
 var bodyParser = require("body-parser");
 // movie router
 var moviesRouter = require("./routes/movies");
-
 // mysql
 var mysql = require("mysql");
 
@@ -61,9 +60,11 @@ app.post("/loginCheck", function(req, res, next) {
         throw err;
       }
       if (rows[0] != undefined) {
-        res.send("id : " + rows[0]["id"] + "<br>" + "pw : " + rows[0]["pw"]);
+        res.redirect("/#/list");
       } else {
-        res.send("no data");
+        res.send(
+          '<script type="text/javascript">alert("로그인 실패, 아이디와 패스워드를 다시 한번 확인해 주세요."); location.href="/"</script>'
+        );
       }
     }
   );
