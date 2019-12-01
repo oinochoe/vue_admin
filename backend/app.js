@@ -6,6 +6,7 @@ var logger = require("morgan");
 var bodyParser = require("body-parser");
 // movie router
 var moviesRouter = require("./routes/movies");
+
 // mysql
 var mysql = require("mysql");
 
@@ -47,6 +48,27 @@ app.post("/regist", function(req, res) {
   });
 });
 
+// select
+app.post("/loginCheck", function(req, res, next) {
+  var id = req.body["id"];
+  var pw = req.body["pw"];
+  connection.query(
+    "select * from test_user where id=? and pw=?",
+    [id, pw],
+    function(err, rows, fields) {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+      if (rows[0] != undefined) {
+        res.send("id : " + rows[0]["id"] + "<br>" + "pw : " + rows[0]["pw"]);
+      } else {
+        res.send("no data");
+      }
+    }
+  );
+});
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -57,6 +79,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// movie
 app.use("/api/movies", moviesRouter);
 
 // catch 404 and forward to error handler
