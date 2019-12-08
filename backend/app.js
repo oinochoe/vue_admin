@@ -76,7 +76,7 @@ app.post("/loginCheck", function(req, res, next) {
   var id = req.body["id"];
   var pw = req.body["pw"];
   connection.query(
-    "select * from test_user where id=? and pw=?",
+    "select * from members where id=? and pw=?",
     [id, pw],
     function(err, rows, fields) {
       if (err) {
