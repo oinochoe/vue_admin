@@ -6,7 +6,6 @@
 export default [
   {
     path: "",
-    // Relative to /src/views
     view: "LoginPage"
   },
   {
