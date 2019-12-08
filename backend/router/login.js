@@ -7,7 +7,7 @@ router.get("/", function(req, res, next) {
   if (!req.session.name) {
     res.redirect("/");
   } else {
-    res.sendFile(path.join(__dirname, "../public", "index.html"));
+    res.redirect("/list");
   }
 });
 
