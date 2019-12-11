@@ -17,13 +17,14 @@
                 <span class="subheading font-weight-light text--darken-3" v-text="header.text" />
               </template>
               <template slot="items" slot-scope="{ item }">
-                <td>{{ item.index }}</td>
-                <td>{{ item.tel }}</td>
-                <td class="text-xs-right" onClick="confirm('정말로 삭제 하시겠습니까?')">
+                <td>{{ item.num }}</td>
+                <td>{{ item.telephone }}</td>
+                <td>{{ item.date }}</td>
+                <td class="text-xs-right">
                   <span class="v-tooltip v-tooltip--top">
                     <span>
-                      <button
-                        type="button"
+                      <v-btn
+                        @click="removeItem(item.num)"
                         class="v-btn--simple v-btn v-btn--icon theme--light danger"
                       >
                         <div class="v-btn__content">
@@ -32,7 +33,7 @@
                             class="v-icon mdi mdi-close theme--light error--text"
                           ></i>
                         </div>
-                      </button>
+                      </v-btn>
                     </span>
                   </span>
                 </td>
@@ -57,7 +58,12 @@ export default {
       {
         sortable: false,
         text: "전화번호",
-        value: "tel"
+        value: "telephone"
+      },
+      {
+        sortable: true,
+        text: "등록일",
+        value: "date"
       },
       {
         sortable: false,
@@ -68,42 +74,23 @@ export default {
     ],
     items: [
       {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
-      },
-      {
-        tel: "01056144070"
+        telephone: "dfsadf"
       }
     ]
-  })
+  }),
+  created() {
+    this.$http.get("/getList").then(response => {
+      this.items = response.data;
+    });
+  },
+  methods: {
+    removeItem(num) {
+      this.$http.delete("/deleteItem", { body: { item: num } }).then(res => {
+        if (res == "success") {
+          this.items.splice(index, 1);
+        }
+      });
+    }
+  }
 };
 </script>
