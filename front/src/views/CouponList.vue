@@ -35,7 +35,7 @@
               </template>
               <template
                 slot="items"
-                slot-scope="{ item, index }"
+                slot-scope="{ item }"
               >
                 <td>{{ item.num }}</td>
                 <td>{{ item.telephone }}</td>
@@ -45,7 +45,7 @@
                     <span>
                       <v-btn
                         class="v-btn--simple v-btn v-btn--icon theme--light danger"
-                        @click="removeItem(item.num, index)"
+                        @click="removeItem(item.num)"
                       >
                         <div class="v-btn__content">
                           <i
@@ -92,7 +92,48 @@ export default {
         align: "right"
       }
     ],
-    items: []
+    items: [
+      {
+        num:1,
+        telephone:"01056144070",
+        "date":"2019-03-03",
+      },
+      {
+        num:1,
+        telephone:"01056144070",
+        "date":"2019-03-03",
+      },
+      {
+        num:1,
+        telephone:"01056144070",
+        "date":"2019-03-03",
+      },
+      {
+        num:1,
+        telephone:"01056144070",
+        "date":"2019-03-03",
+      },
+      {
+        num:4,
+        telephone:"01056144070",
+        "date":"2019-03-03",
+      },
+      {
+        num:3,
+        telephone:"01056144070",
+        "date":"2019-03-03",
+      },
+      {
+        num:31,
+        telephone:"01056144070",
+        "date":"2019-03-03",
+      },
+      {
+        num:331,
+        telephone:"01056144070",
+        "date":"2019-03-03",
+      },
+    ]
   }),
   created() {
     this.$http.get("/getList").then(response => {
@@ -100,11 +141,11 @@ export default {
     });
   },
   methods: {
-    removeItem(num, index) {
+    removeItem(num) {
       if (confirm("정말로 삭제하시겠습니까?")) {
         this.$http.delete(`/deleteItem/${num}`).then(res => {
           if (res) {
-            this.$delete(this.items, index);
+            this.items = this.items.filter(i=>i.num != num)
           }
         });
       }

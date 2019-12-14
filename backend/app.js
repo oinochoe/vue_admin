@@ -11,6 +11,8 @@ var MySQLStore = require("express-mysql-session")(session);
 var loginRouter = require("./router/login");
 // index router
 var indexRouter = require("./router/index");
+// survey router
+var surveyRouter = require("./router/survey");
 
 // mysql
 var mysql = require("mysql");
@@ -82,10 +84,35 @@ app.get("/getList", function(req, res, next) {
   );
 });
 
-// deleteItem
+// getSurvey
+app.get("/getSurvey", function(req, res, next) {
+  connection.query(
+    "SELECT num, contents, DATE_FORMAT(DATE, '%Y-%m-%d %H:%i:%s') AS date FROM survey_info",
+    function(err, rows) {
+      if (err) throw err;
+      res.send(rows);
+    }
+  );
+});
+
+// deleteItem user info 
 app.delete(`/deleteItem/:id`, function(req, res, next) {
   connection.query(
     "DELETE FROM user_info WHERE num =" + req.params.id,
+    function(err, result) {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+      res.status(200).send("success");
+    }
+  );
+});
+
+// deleteItem survey info
+app.delete(`/deleteSurvey/:id`, function(req, res, next) {
+  connection.query(
+    "DELETE FROM survey_info WHERE num =" + req.params.id,
     function(err, result) {
       if (err) {
         console.error(err);
@@ -136,6 +163,9 @@ app.use("/", loginRouter);
 
 // index
 app.use("/list", indexRouter);
+
+// survey
+app.use("/survey", surveyRouter);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

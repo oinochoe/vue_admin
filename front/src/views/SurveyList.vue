@@ -37,17 +37,15 @@
                 slot="items"
                 slot-scope="{ item }"
               >
-                <td>{{ item.index }}</td>
+                <td>{{ item.num }}</td>
                 <td>{{ item.contents }}</td>
-                <td
-                  class="text-xs-right"
-                  onClick="confirm('정말로 삭제 하시겠습니까?')"
-                >
+                <td>{{ item.date }}</td>
+                <td class="text-xs-right">
                   <span class="v-tooltip v-tooltip--top">
                     <span>
-                      <button
-                        type="button"
+                      <v-btn
                         class="v-btn--simple v-btn v-btn--icon theme--light danger"
+                        @click="removeItem(item.num)"
                       >
                         <div class="v-btn__content">
                           <i
@@ -55,7 +53,7 @@
                             class="v-icon mdi mdi-close theme--light error--text"
                           />
                         </div>
-                      </button>
+                      </v-btn>
                     </span>
                   </span>
                 </td>
@@ -83,50 +81,34 @@ export default {
         value: "contents"
       },
       {
+        sortable: true,
+        text: "등록일",
+        value: "date"
+      },
+      {
         sortable: false,
         text: "삭제",
         value: "",
         align: "right"
       }
     ],
-    items: [
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
-      },
-      {
-        contents: "머라하노"
+    items: []
+  }),  
+  created() {
+    this.$http.get("/getSurvey").then(response => {
+      this.items = response.data;
+    });
+  },
+  methods: {
+    removeItem(num) {
+      if (confirm("정말로 삭제하시겠습니까?")) {
+        this.$http.delete(`/deleteSurvey/${num}`).then(res => {
+          if (res) {
+            this.items = this.items.filter(i=>i.num != num)
+          }
+        });
       }
-    ]
-  })
+    }
+  }
 };
 </script>
