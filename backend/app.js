@@ -83,18 +83,17 @@ app.get("/getList", function(req, res, next) {
 });
 
 // deleteItem
-app.delete("/deleteItem", function(req, res, next) {
-  console.log(req.body);
-  connection.query("DELETE FROM user_info WHERE num =" + 8, function(
-    err,
-    result
-  ) {
-    if (err) {
-      console.error(err);
-      throw err;
+app.delete(`/deleteItem/:id`, function(req, res, next) {
+  connection.query(
+    "DELETE FROM user_info WHERE num =" + req.params.id,
+    function(err, result) {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+      res.status(200).send("success");
     }
-    res.status(200).send("success");
-  });
+  );
 });
 
 // loginCheck

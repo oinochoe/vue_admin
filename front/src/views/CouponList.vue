@@ -35,7 +35,7 @@
               </template>
               <template
                 slot="items"
-                slot-scope="{ item }"
+                slot-scope="{ item, index }"
               >
                 <td>{{ item.num }}</td>
                 <td>{{ item.telephone }}</td>
@@ -45,7 +45,7 @@
                     <span>
                       <v-btn
                         class="v-btn--simple v-btn v-btn--icon theme--light danger"
-                        @click="removeItem(items, item.num)"
+                        @click="removeItem(item.num, index)"
                       >
                         <div class="v-btn__content">
                           <i
@@ -92,11 +92,7 @@ export default {
         align: "right"
       }
     ],
-    items: [
-      {
-        telephone: "dfsadf"
-      }
-    ]
+    items: []
   }),
   created() {
     this.$http.get("/getList").then(response => {
@@ -104,10 +100,12 @@ export default {
     });
   },
   methods: {
-    removeItem(items, num) {
+    removeItem(num, index) {
       if (confirm("정말로 삭제하시겠습니까?")) {
-        this.$http.delete("/deleteItem", { body: { num: num } }).then(res => {
-          this.items.splice(num, 1);
+        this.$http.delete(`/deleteItem/${num}`).then(res => {
+          if (res) {
+            this.$delete(this.items, index);
+          }
         });
       }
     }
