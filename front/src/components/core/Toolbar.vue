@@ -1,5 +1,11 @@
 <template>
-  <v-toolbar id="core-toolbar" app flat prominent style="background: #eee;">
+  <v-toolbar
+    id="core-toolbar"
+    app
+    flat
+    prominent
+    style="background: #eee;"
+  >
     <div class="v-toolbar-title">
       <v-toolbar-title class="tertiary--text font-weight-light">
         <v-btn
@@ -15,10 +21,21 @@
       </v-toolbar-title>
     </div>
     <v-spacer />
-    <form ref="form" method="POST" action="/logoutCheck">
+    <form
+      ref="form"
+      method="POST"
+      action="/logoutCheck"
+    >
       <v-toolbar-items>
-        <v-flex align-center layout py-2>
-          <v-btn class="toolbar-items" @click="auth">
+        <v-flex
+          align-center
+          layout
+          py-2
+        >
+          <v-btn
+            class="toolbar-items"
+            @click="auth"
+          >
             <v-icon color="tertiary">
               mdi-airplane-off
             </v-icon>

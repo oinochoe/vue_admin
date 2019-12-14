@@ -2,8 +2,15 @@
   <v-app>
     <core-toolbar />
     <core-drawer />
-    <v-container fill-height fluid grid-list-xl>
-      <v-layout justify-center wrap>
+    <v-container
+      fill-height
+      fluid
+      grid-list-xl
+    >
+      <v-layout
+        justify-center
+        wrap
+      >
         <v-flex md12>
           <material-card
             color="#00bcd4"
@@ -12,14 +19,30 @@
             title="설문조사 리스트"
             text="Moca 설문 조사 리스트 입니다."
           >
-            <v-data-table :headers="headers" :items="items" :items-per-page="5">
-              <template slot="headerCell" slot-scope="{ header }">
-                <span class="subheading font-weight-light text--darken-3" v-text="header.text" />
+            <v-data-table
+              :headers="headers"
+              :items="items"
+              :items-per-page="5"
+            >
+              <template
+                slot="headerCell"
+                slot-scope="{ header }"
+              >
+                <span
+                  class="subheading font-weight-light text--darken-3"
+                  v-text="header.text"
+                />
               </template>
-              <template slot="items" slot-scope="{ item }">
+              <template
+                slot="items"
+                slot-scope="{ item }"
+              >
                 <td>{{ item.index }}</td>
                 <td>{{ item.contents }}</td>
-                <td class="text-xs-right" onClick="confirm('정말로 삭제 하시겠습니까?')">
+                <td
+                  class="text-xs-right"
+                  onClick="confirm('정말로 삭제 하시겠습니까?')"
+                >
                   <span class="v-tooltip v-tooltip--top">
                     <span>
                       <button
@@ -30,7 +53,7 @@
                           <i
                             aria-hidden="true"
                             class="v-icon mdi mdi-close theme--light error--text"
-                          ></i>
+                          />
                         </div>
                       </button>
                     </span>

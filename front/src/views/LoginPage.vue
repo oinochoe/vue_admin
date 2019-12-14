@@ -2,29 +2,60 @@
   <div class="centered-container">
     <md-content class="md-elevation-3">
       <div class="title">
-        <img src="../img/mocalogo.png" alt="moca logo" />
-        <div class="md-title">Moca</div>
-        <div class="md-body-1">MOCA is the meeting cafe which we are comfortable with someone.</div>
+        <img
+          src="../img/mocalogo.png"
+          alt="moca logo"
+        >
+        <div class="md-title">
+          Moca
+        </div>
+        <div class="md-body-1">
+          MOCA is the meeting cafe which we are comfortable with someone.
+        </div>
       </div>
 
-      <form ref="form" class="form" method="POST" action="/loginCheck">
+      <form
+        ref="form"
+        class="form"
+        method="POST"
+        action="/loginCheck"
+      >
         <md-field>
           <label>ID</label>
-          <md-input v-model="id" name="id" autofocus />
+          <md-input
+            v-model="id"
+            name="id"
+            autofocus
+          />
         </md-field>
 
         <md-field md-has-password>
           <label>Password</label>
-          <md-input v-model="pw" name="pw" type="password" />
+          <md-input
+            v-model="pw"
+            name="pw"
+            type="password"
+          />
         </md-field>
       </form>
 
       <div class="actions md-layout md-alignment-center-space-between">
-        <md-button class="md-raised md-primary" @click="auth">Log in</md-button>
+        <md-button
+          class="md-raised md-primary"
+          @click="auth"
+        >
+          Log in
+        </md-button>
       </div>
 
-      <div v-if="loading" class="loading-overlay">
-        <md-progress-spinner md-mode="indeterminate" :md-stroke="2" />
+      <div
+        v-if="loading"
+        class="loading-overlay"
+      >
+        <md-progress-spinner
+          md-mode="indeterminate"
+          :md-stroke="2"
+        />
       </div>
     </md-content>
   </div>

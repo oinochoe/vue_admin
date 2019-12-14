@@ -84,7 +84,8 @@ app.get("/getList", function(req, res, next) {
 
 // deleteItem
 app.delete("/deleteItem", function(req, res, next) {
-  connection.query("DELETE FROM user_info WHERE num =" + req.body.num, function(
+  console.log(req.body);
+  connection.query("DELETE FROM user_info WHERE num =" + 8, function(
     err,
     result
   ) {
