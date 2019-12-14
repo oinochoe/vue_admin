@@ -26,6 +26,7 @@
             v-model="id"
             name="id"
             autofocus
+            v-on:keyup.enter="onEnter"
           />
         </md-field>
 
@@ -35,6 +36,7 @@
             v-model="pw"
             name="pw"
             type="password"
+            v-on:keyup.enter="onEnter"
           />
         </md-field>
       </form>
@@ -73,6 +75,13 @@ export default {
   },
   methods: {
     auth() {
+      this.$refs.form.submit();
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 5000);
+    },
+    onEnter: function() {
       this.$refs.form.submit();
       this.loading = true;
       setTimeout(() => {

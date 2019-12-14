@@ -92,48 +92,7 @@ export default {
         align: "right"
       }
     ],
-    items: [
-      {
-        num:1,
-        telephone:"01056144070",
-        "date":"2019-03-03",
-      },
-      {
-        num:1,
-        telephone:"01056144070",
-        "date":"2019-03-03",
-      },
-      {
-        num:1,
-        telephone:"01056144070",
-        "date":"2019-03-03",
-      },
-      {
-        num:1,
-        telephone:"01056144070",
-        "date":"2019-03-03",
-      },
-      {
-        num:4,
-        telephone:"01056144070",
-        "date":"2019-03-03",
-      },
-      {
-        num:3,
-        telephone:"01056144070",
-        "date":"2019-03-03",
-      },
-      {
-        num:31,
-        telephone:"01056144070",
-        "date":"2019-03-03",
-      },
-      {
-        num:331,
-        telephone:"01056144070",
-        "date":"2019-03-03",
-      },
-    ]
+    items: []
   }),
   created() {
     this.$http.get("/getList").then(response => {
