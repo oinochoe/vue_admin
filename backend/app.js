@@ -95,7 +95,7 @@ app.get("/getSurvey", function(req, res, next) {
   );
 });
 
-// deleteItem user info 
+// deleteItem user info
 app.delete(`/deleteItem/:id`, function(req, res, next) {
   connection.query(
     "DELETE FROM user_info WHERE num =" + req.params.id,
@@ -128,7 +128,7 @@ app.post("/loginCheck", function(req, res, next) {
   var id = req.body["id"];
   var pw = req.body["pw"];
   connection.query(
-    "select * from members where id=? and pw=?",
+    "select user_id, user_pw from admin_user where user_id=? and user_pw=?",
     [id, pw],
     function(err, rows, fields) {
       if (err) {
@@ -136,7 +136,7 @@ app.post("/loginCheck", function(req, res, next) {
         throw err;
       }
       if (rows[0] != undefined) {
-        req.session.name = rows[0].id;
+        req.session.name = rows[0].user_id;
         req.session.save(function() {
           return res.redirect("/list");
         });
