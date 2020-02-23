@@ -9,26 +9,13 @@
     mobile-break-point="991"
     width="260"
   >
-    <v-img
-      :src="image"
-      height="100%"
-    >
-      <v-layout
-        class="fill-height"
-        tag="v-list"
-        column
-      >
+    <v-img :src="image" height="100%">
+      <v-layout class="fill-height" tag="v-list" column>
         <v-list-tile avatar>
           <v-list-tile-avatar color="white">
-            <v-img
-              :src="logo"
-              height="34"
-              contain
-            />
+            <v-img :src="logo" height="34" contain />
           </v-list-tile-avatar>
-          <v-list-tile-title class="title">
-            Moca
-          </v-list-tile-title>
+          <v-list-tile-title class="title">Moca</v-list-tile-title>
         </v-list-tile>
         <v-divider />
         <v-list-tile
@@ -71,7 +58,7 @@ export default {
       {
         to: "/survey",
         icon: "mdi-clipboard-outline",
-        text: "설문 조사 결과"
+        text: "설문 조사"
       }
     ]
   }),
