@@ -10,9 +10,9 @@
   "dependencies": {
     "axios": "^0.21.2",
     "core-js": "^3.4.3",
-    "css-loader": "^3.2.0",
+    "css-loader": "^6.7.3",
     "node-sass": "^4.13.0",
-    "sass-loader": "^8.0.0",
+    "sass-loader": "^13.2.0",
     "vue": "^2.6.10",
     "vue-material": "latest",
     "vue-meta": "^2.3.1",
@@ -21,9 +21,9 @@
     "vuetify": "1.4.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.1.0",
-    "@vue/cli-plugin-eslint": "^4.1.0",
-    "@vue/cli-service": "^4.1.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
@@ -33,7 +33,7 @@
     "axios": "0.21.2",
     "material-design-icons-iconfont": "3.0.3",
     "stylus": "0.54.5",
-    "stylus-loader": "3.0.1",
+    "stylus-loader": "7.1.0",
     "vue-analytics": "5.8.0",
     "vue-i18n": "7.4.0",
     "vue-router": "3.0.1",
